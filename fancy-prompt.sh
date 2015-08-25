@@ -1,8 +1,9 @@
+
 function _fancy_prompt {
   local RED="\[\033[31m\]"
   local GREEN="\[\033[32m\]"
   local YELLOW="\[\033[33m\]"
-  local BLUE="\[\033[01;34m\]"
+  local BLUE="\[\033[34m\]"
   local WHITE="\[\033[00m\]"
   local LIGHTBLUE="\[\033[36m\]"
 
@@ -16,7 +17,7 @@ function _fancy_prompt {
   local PROMPT=$venv
 
   # Show current user and hostname
-  PROMPT=$PROMPT"$LIGHTBLUE[\u@\h] "
+  PROMPT=$PROMPT"$GREEN[\u@\h] "
 
   # Path abbreviation
   local pwd_length=35
@@ -28,10 +29,10 @@ function _fancy_prompt {
 	  newPWD=$(echo -n $newPWD | awk -F '/' '{if (NF>4) { 
     print $1 "/" $2 "/.../" $(NF-1) "/" $(NF)} 
     else {
-	    print $PWD}}')
+	    print "/" $2 "/" $3 "/" $4}}')
   fi
   
-  PROMPT=$PROMPT"$YELLOW$newPWD"
+  PROMPT=$PROMPT"$BLUE$newPWD"
 
   # Git-specific
   local GIT_STATUS=$(git status 2> /dev/null)
@@ -80,6 +81,7 @@ function _fancy_prompt {
 }
 
 export PROMPT_COMMAND="_fancy_prompt"
+
 
 
 
